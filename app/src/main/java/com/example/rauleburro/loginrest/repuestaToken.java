@@ -41,14 +41,16 @@ public class repuestaToken extends Activity {
         final Usuario user = new Usuario();
 
         user.setUsername(bundle.getString("usuario"));
+        System.out.println("Usuario: "+user.getUsername());
         user.setPassword(bundle.getString("password"));
+        System.out.println("Contraseña: "+user.getPassword());
         /*Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)
                 .registerTypeAdapter(Date.class,new DateTypeAdapter())
                 .create();*/
 
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint("http://192.168.0.14:8000")
+                .setEndpoint("http://infoparaguay.tk/")
                 //.setConverter(new GsonConverter(gson))
                 .build();
 
@@ -57,7 +59,7 @@ public class repuestaToken extends Activity {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                tuto.getToken(user,new Callback<Token>() {
+                tuto.getToken(user.getUsername(),user.getPassword(),new Callback<Token>() {
                     @Override
                     public void success(Token tok, Response response) {
                         token = tok;
@@ -67,7 +69,9 @@ public class repuestaToken extends Activity {
 
                     @Override
                     public void failure(RetrofitError retrofitError) {
-                        token = new Token("Usuario y/o contraseña erronea");
+                        retrofitError.printStackTrace();
+                        token = new Token();
+                                token.setKey("Usuario y/o contraseña erronea");
                         updateGui();
                     }
                 });
@@ -81,7 +85,7 @@ public class repuestaToken extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                tokenView.setText(token.getToken().toString());
+                tokenView.setText(token.getKey().toString());
             }
         });
     }

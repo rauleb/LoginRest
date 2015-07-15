@@ -17,13 +17,13 @@ import retrofit.http.POST;
  */
 public interface tutoRest {
 
-    @Headers({
+    /*@Headers({
             "Accept: application/json",
             "Cache-Control: no-cache",
             "Content-Type: application/json"
-    })
+    })*/
     //@FormUrlEncoded
-    @POST("/token-auth/")
+    @POST("/core/rest-auth/login")
     //Token getToken(@Body Usuario usuario);
-    void getToken(@Body Usuario usuario, Callback<Token> response);
+    Token getToken(@Field("username") String usuario, @Field("password") String password, Callback<Token> response);
 }
