@@ -7,8 +7,6 @@ import java.util.concurrent.Callable;
 
 import retrofit.Callback;
 import retrofit.http.Body;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
 import retrofit.http.Headers;
 import retrofit.http.POST;
 
@@ -17,13 +15,13 @@ import retrofit.http.POST;
  */
 public interface tutoRest {
 
-    /*@Headers({
+    @Headers({
             "Accept: application/json",
             "Cache-Control: no-cache",
             "Content-Type: application/json"
-    })*/
+    })
     //@FormUrlEncoded
-    @POST("/core/rest-auth/login")
+    @POST("/core/rest-auth/login/")
     //Token getToken(@Body Usuario usuario);
-    Token getToken(@Field("username") String usuario, @Field("password") String password, Callback<Token> response);
+    void getToken(@Body Usuario usuario, Callback<Token> response);
 }

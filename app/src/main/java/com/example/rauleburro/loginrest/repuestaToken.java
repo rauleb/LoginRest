@@ -59,7 +59,7 @@ public class repuestaToken extends Activity {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                tuto.getToken(user.getUsername(),user.getPassword(),new Callback<Token>() {
+                tuto.getToken(user,new Callback<Token>() {
                     @Override
                     public void success(Token tok, Response response) {
                         token = tok;
